@@ -1,0 +1,52 @@
+version: '3.7'
+
+networks:
+  app-network:
+    driver: bridge
+
+services:
+
+  user-api-test:
+    build:
+      context: .
+      dockerfile: ./docker/php/Dockerfile
+    image: user-api-test
+    container_name: user-api-test
+    restart: unless-stopped
+    environment:
+      - APP_ENV=local
+      - APP_DEBUG=true
+    ports:
+      - "8000:80"
+    working_dir: /var/www/html
+    volumes:
+      - ./:/var/www/html
+      - ./docker/php/local.ini:/usr/local/etc/php/conf.d/local.ini
+    networks:
+      app-network:
+        aliases:
+          - api.book
+    depends_on:
+      - user-db-test
+
+  user-db-test:
+    build:
+      context: .
+      dockerfile: ./docker/mysql/Dockerfile
+    image: user-db-test
+    container_name: user-db-test
+    restart: unless-stopped
+    ports:
+      - "3306:3306"
+    env_file:
+      - ".env"
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: user_api_test
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    volumes:
+      - './docker/mysql/my.cnf:/etc/mysql/my.cnf'
+      - './docker/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql'
+    networks:
+      - app-network
