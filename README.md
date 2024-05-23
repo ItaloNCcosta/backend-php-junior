@@ -35,7 +35,33 @@ Siga estas etapas para configurar e executar o projeto usando Docker Compose:
   ```bash
    http://localhost:8000/api/ping
   ```
-  
+6. **Teste as rotas/endpoints:**
+
+   - **GET /api/user/{user}**
+     ```
+     curl -X GET http://localhost:8000/api/user/1
+     ```
+
+   - **POST /api/user**
+     ```
+     curl -X POST -H "Content-Type: application/json" -d '{"name":"Usuario","cpf":"99999999999","email":"usuario@example.com","password":"password","password_confirmation":"password"}' http://localhost:8000/api/user
+     ```
+
+   - **PUT /api/user/{user}**
+     ```
+     curl -X PUT -H "Content-Type: application/json" -d '{"name":"Usuario atualizado","cpf":"11111111111","email":"usuario@example.com","password":"123123123","password_confirmation":"123123123"}' http://localhost:8000/api/user/2
+     ```
+
+   - **DELETE /api/user/{user}**
+     ```
+     curl -X DELETE http://localhost:8000/api/user/2
+     ```
+
+   - **POST /api/login**
+     ```
+     curl -X POST -H "Content-Type: application/json" -d '{"email":"usuario@example.com","password":"123123123"}' http://localhost:8000/api/login
+     ```
+
 ## Comandos Úteis
 - Parar os containers:
   ```bash
