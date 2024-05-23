@@ -5,7 +5,7 @@ use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/ping', function () {
-  return 'tamo on ;)';
+  return Response()->json(['message' => 'tamo on ;)']);
 });
 
 Route::get('/user/{user}', [UserController::class, 'show']);
