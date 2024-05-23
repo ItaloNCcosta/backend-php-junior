@@ -75,3 +75,4 @@ Siga estas etapas para configurar e executar o projeto usando Docker Compose:
   
 ## Contribuições
 Sinta-se à vontade para avaliar, relatar bugs ou melhorias.
+
