@@ -12,9 +12,9 @@ Teste programador Backend PHP Júnior (Laravel)
 Siga estas etapas para configurar e executar o projeto usando Docker Compose:
 
 1. **Clone o repositório:**
-   ```bash
+  ```bash
    git clone https://github.com/seu-usuario/seu-projeto.git
-   ```
+  ```
 
 2. **Navegue até o diretório do projeto:**
   ```bash
