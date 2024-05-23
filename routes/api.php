@@ -13,4 +13,4 @@ Route::post('/user', [UserController::class, 'store']);
 Route::put('/user/{user}', [UserController::class, 'update']);
 Route::delete('/user/{user}', [UserController::class, 'destroy']);
 
-Route::post('/auth', [AuthController::class, 'auth']);
+Route::post('/login', [AuthController::class, 'login']);

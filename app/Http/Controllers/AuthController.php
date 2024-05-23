@@ -3,31 +3,34 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
-  public function index()
+  public function login(Request $request)
   {
-    //
-  }
+    $validated = $request->validate([
+      'email' => 'required|string|email',
+      'password' => 'required|string',
+    ]);
 
-  public function store(Request $request)
-  {
-    //
-  }
+    $token = Auth::attempt($validated);
 
-  public function show(string $id)
-  {
-    //
-  }
+    if (!$token) {
+      return Response()->json([
+        'status' => 'error',
+        'message' => 'Unauthorized'
+      ], 401);
+    }
 
-  public function update(Request $request, string $id)
-  {
-    //
-  }
-
-  public function destroy(string $id)
-  {
-    //
+    $user = Auth::user();
+    return Response()->json([
+      'status' => 'success',
+      'user' => $user,
+      'authorization' => [
+        'token' => $token,
+        'type' => 'bearer'
+      ]
+    ]);
   }
 }
