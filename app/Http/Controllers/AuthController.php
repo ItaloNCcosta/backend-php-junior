@@ -19,18 +19,20 @@ class AuthController extends Controller
     if (!$token) {
       return Response()->json([
         'status' => 'error',
-        'message' => 'Unauthorized'
+        'message' => 'Usuário não existe!'
       ], 401);
     }
 
     $user = Auth::user();
+    $expiresIn = auth('api')->payload()->get('exp');
+
     return Response()->json([
       'status' => 'success',
+      'message' => 'Usuário criado e JWT encontrado',
+      'tokenjwt' => $token,
+      'expires' => \Carbon\Carbon::createFromTimestamp($expiresIn)->toDateString(),
+      'tokenmsg' => 'use o token para acessar os endpoints!',
       'user' => $user,
-      'authorization' => [
-        'token' => $token,
-        'type' => 'bearer'
-      ]
     ]);
   }
 }
